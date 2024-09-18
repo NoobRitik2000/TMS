@@ -34,14 +34,12 @@
     <div class="form-group">
         <label asp-for="Priority"></label>
         <select asp-for="Priority" class="form-control">
-            <option value="" selected disabled>Select Priority</option> <!-- Default placeholder option -->
             <option value="High">High</option>
+            <option value="Medium">Medium</option>
             <option value="Low">Low</option>
         </select>
         <span asp-validation-for="Priority" class="text-danger"></span>
     </div>
-
-
 
     <div class="form-group">
         <label asp-for="CreatedBy"></label>
@@ -51,7 +49,7 @@
 
     <div class="form-group">
         <label asp-for="CreatedDate"></label>
-        <input asp-for="CreatedDate" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" readonly/>
+        <input asp-for="CreatedDate" type="datetime-local" class="form-control" />
         <span asp-validation-for="CreatedDate" class="text-danger"></span>
     </div>
 

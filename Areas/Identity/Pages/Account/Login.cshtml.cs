@@ -63,6 +63,7 @@ namespace TMS.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                // Find the user by their email
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null)
                 {
@@ -70,6 +71,7 @@ namespace TMS.Areas.Identity.Pages.Account
                     return Page();
                 }
 
+                // Check if the user is locked out
                 if (await _userManager.IsLockedOutAsync(user))
                 {
                     _logger.LogWarning("User account locked out.");
@@ -83,7 +85,8 @@ namespace TMS.Areas.Identity.Pages.Account
                 //     return Page();
                 // }
 
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                // Here, use the user's username (not email) in PasswordSignInAsync
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -106,6 +109,7 @@ namespace TMS.Areas.Identity.Pages.Account
                 }
             }
 
+            // If we get this far, something failed, redisplay form
             return Page();
         }
 

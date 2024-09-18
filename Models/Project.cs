@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Task_Management.Models
 {
@@ -23,10 +25,11 @@ namespace Task_Management.Models
         public string Priority { get; set; }
 
         [Required]
-        [StringLength(50)]
+    
         public int CreatedBy { get; set; }
-
-        [Required]
+        //[ForeignKey("CreatedBy")]
+        //public IdentityUser Creator { get; set; }  // Navigation property
+        //[Required]
         public DateTime CreatedDate { get; set; }
     }
 }

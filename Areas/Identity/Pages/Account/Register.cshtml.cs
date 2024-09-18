@@ -92,6 +92,7 @@ namespace TMS.Areas.Identity.Pages.Account
             [Required]
             [Phone]
             [Display(Name = "PhoneNumber")]
+            [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits.")]
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -125,8 +126,10 @@ namespace TMS.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                // Phone number ko set karo
+                user.PhoneNumber = Input.PhoneNumber;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
